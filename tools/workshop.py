@@ -98,15 +98,24 @@ def when(stamp):
     return datetime.datetime.fromisoformat(stamp.replace("Z", "+00:00"))
 
 
-def check_author(repo, login, now):
+def over_rate_limit(issues, number, opened):
+    """The user's issues up to and including this one, in the window before it.
+    Judged at the issue's own time, so a delayed or re-run job gives the same
+    answer and later submissions never count against earlier ones."""
+    recent = [i for i in issues
+              if i["number"] <= number and opened - when(i["created_at"]) < RATE_WINDOW]
+    return len(recent) > RATE_LIMIT
+
+
+def check_author(repo, issue):
     """Bot protection: people only, at most RATE_LIMIT submissions per window."""
+    login = issue["user"]["login"]
     user = github(f"/users/{login}")
     if user.get("type") != "User":
         raise Rejected("submissions come from people, not bots")
     issues = github(f"/repos/{repo}/issues?creator={login}&state=all&labels=blueprint"
-                    "&sort=created&direction=desc&per_page=20")
-    recent = [i for i in issues if now - when(i["created_at"]) < RATE_WINDOW]
-    if len(recent) > RATE_LIMIT:
+                    "&sort=created&direction=desc&per_page=100")
+    if over_rate_limit(issues, issue["number"], when(issue["created_at"])):
         raise Rejected(f"only {RATE_LIMIT} blueprints per 10 minutes; wait a bit and submit again")
 
 
@@ -134,7 +143,7 @@ def submit():
     now = datetime.datetime.now(datetime.timezone.utc)
     reply = ROOT / "reply.md"
     try:
-        check_author(os.environ["GITHUB_REPOSITORY"], login, now)
+        check_author(os.environ["GITHUB_REPOSITORY"], issue)
         name, description, blueprint, preview, ext, parts = parse_submission(issue.get("body"))
     except Rejected as e:
         reply.write_text(f"Not published: {e}.\n", encoding="utf-8")
@@ -169,6 +178,12 @@ def test():
         "preview": base64.b64encode(jpeg).decode()}) + "\n```\n"
     name, description, _, _, ext, parts = parse_submission(body)
     assert (name, description, ext, parts) == ("Car", "a b", "jpg", 2), (name, description, ext)
+    t0 = when("2026-01-01T00:00:00Z")
+    burst = [{"number": n, "created_at": f"2026-01-01T00:0{n}:00Z"} for n in range(1, 6)]
+    assert [over_rate_limit(burst, n, t0 + datetime.timedelta(minutes=n)) for n in range(1, 6)] == \
+        [False, False, False, True, True]
+    later = {"number": 6, "created_at": "2026-01-01T00:12:30Z"}  # #1-#2 are out of the window
+    assert not over_rate_limit(burst[2:3] + [later], 6, when(later["created_at"]))
     print("ok")
 
 
