@@ -1,4 +1,15 @@
 {
  "version": 1,
- "blueprints": []
+ "blueprints": [
+  {
+   "name": "Mod test clean",
+   "description": "Moderation test, will be purged.",
+   "author": "etonedemid",
+   "parts": 44,
+   "created": "2026-10-19T02:56:35Z",
+   "id": "7",
+   "blueprint": "blueprints/7/blueprint.bin",
+   "preview": "blueprints/7/preview.jpg"
+  }
+ ]
 }
