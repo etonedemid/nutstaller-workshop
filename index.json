@@ -10,6 +10,16 @@
    "id": "3",
    "blueprint": "blueprints/3/blueprint.bin",
    "preview": "blueprints/3/preview.jpg"
+  },
+  {
+   "name": "Test doodoo",
+   "description": "Workshop end-to-end test 2, will be removed.",
+   "author": "etonedemid",
+   "parts": 33,
+   "created": "2026-10-19T02:34:17Z",
+   "id": "2",
+   "blueprint": "blueprints/2/blueprint.bin",
+   "preview": "blueprints/2/preview.jpg"
   }
  ]
 }
