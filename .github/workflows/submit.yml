@@ -7,9 +7,6 @@ on:
 permissions:
   contents: write
   issues: write
-concurrency:
-  group: publish   # one at a time: each run rewrites index.json
-  cancel-in-progress: false
 jobs:
   publish:
     if: contains(github.event.issue.labels.*.name, 'blueprint')
@@ -22,21 +19,39 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if python3 tools/workshop.py submit; then echo "ok=1" >> "$GITHUB_OUTPUT"; fi
+      # No concurrency group: GitHub keeps only one pending run per group and
+      # cancels the rest, which would drop submissions made in a burst. Each
+      # run commits only its own folder (never conflicts), then rebuilds
+      # index.json on top of whatever is there and retries if beaten to it.
       - name: Commit
+        id: commit
         if: steps.publish.outputs.ok == '1'
+        env:
+          ISSUE: ${{ github.event.issue.number }}
         run: |
           git config user.name "workshop-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add blueprints index.json
-          git commit -m "Add blueprint from #${{ github.event.issue.number }}"
-          git pull --rebase
-          git push
+          git add "blueprints/$ISSUE"
+          git commit -q -m "Add blueprint from #$ISSUE"
+          for try in 1 2 3 4 5 6 7 8; do
+            git pull -q --rebase
+            python3 tools/workshop.py index
+            indexed=0
+            if ! git diff --quiet index.json; then git commit -q -m "Index #$ISSUE" index.json; indexed=1; fi
+            git push -q && exit 0
+            [ $indexed = 1 ] && git reset -q --hard HEAD~1
+            sleep $((try * 2 + RANDOM % 4))
+          done
+          exit 1
       - name: Reply and close
         if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ISSUE: ${{ github.event.issue.number }}
         run: |
+          if [ "${{ steps.commit.outcome }}" = failure ]; then
+            echo "Not published: the workshop was busy and the upload could not be saved; please submit again." > reply.md
+          fi
           [ -f reply.md ] || echo "Something went wrong while publishing; a maintainer will take a look." > reply.md
           gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body-file reply.md
           if grep -q '^Published' reply.md; then

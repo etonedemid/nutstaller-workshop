@@ -147,7 +147,6 @@ def submit():
             "created": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "preview_file": f"preview.{ext}"}
     (folder / "meta.json").write_text(json.dumps(meta, indent=1, ensure_ascii=False) + "\n",
                                       encoding="utf-8")
-    rebuild_index()
     reply.write_text(f"Published **{name}** ({parts} parts). It shows up in NutStaller's "
                      "workshop within a few minutes.\n", encoding="utf-8")
     return 0
