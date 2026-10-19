@@ -304,6 +304,8 @@ def purge(number):
     still serve the old objects by hash until it garbage-collects them; for
     illegal content also ask GitHub Support to purge the cached views."""
     folder = f"blueprints/{int(number)}"
+    # ponytail: old index.json versions keep the entry's name and description
+    # (text only); rewrite them too if a purge is ever about the text
     subprocess.run(["git", "-C", str(ROOT), "filter-branch", "-f", "--index-filter",
                     f"git rm -r -q --cached --ignore-unmatch {folder}", "HEAD"], check=True,
                    env={**os.environ, "FILTER_BRANCH_SQUELCH_WARNING": "1"})
