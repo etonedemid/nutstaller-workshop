@@ -1,0 +1,15 @@
+# systemd user service for the workshop bot:
+#   cp tools/nutstaller-workshop-bot.service ~/.config/systemd/user/
+#   systemctl --user enable --now nutstaller-workshop-bot
+#   loginctl enable-linger $USER    # keep it running while logged out
+[Unit]
+Description=NutStaller workshop bot
+After=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 -I %h/.local/share/nutstaller-workshop-bot/tools/workshop.py bot
+Restart=always
+RestartSec=30
+
+[Install]
+WantedBy=default.target

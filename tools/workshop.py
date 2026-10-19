@@ -1,14 +1,16 @@
 #!/usr/bin/env python3
 """NutStaller workshop: publishes blueprint submissions and rebuilds index.json.
 
-  workshop.py submit   GitHub Action on a new issue: validate the submission in
-                       the issue body, publish it under blueprints/<issue>/ and
-                       write the reply to reply.md (exit 0 published, 1 rejected)
+  workshop.py bot      run on the maintainer's PC: every minute, take the open
+                       issues labelled blueprint, publish the valid ones under
+                       blueprints/<issue>/, push, then reply and close each one
+  workshop.py once     one pass of the bot (for testing)
   workshop.py index    rebuild index.json from blueprints/*/meta.json
   workshop.py test     self-check of the parsers
 
-Standard library only. The issue body is untrusted: it is read from the event
-file, never through a shell, and only validated bytes are written.
+The bot works in its own clone and uses `gh auth token` and the git login of
+whoever runs it. Standard library only. Issue bodies are untrusted: they are
+only parsed, never passed to a shell, and only validated bytes are written.
 """
 import base64
 import datetime
@@ -16,7 +18,9 @@ import json
 import os
 import re
 import struct
+import subprocess
 import sys
+import time
 import urllib.request
 from pathlib import Path
 
@@ -84,9 +88,17 @@ def parse_submission(body):
     return name, description, blueprint, preview, image_type(preview), parts
 
 
-def github(path):
-    req = urllib.request.Request("https://api.github.com" + path, headers={
-        "Authorization": "Bearer " + os.environ["GITHUB_TOKEN"],
+def token():
+    if "GITHUB_TOKEN" not in os.environ:
+        os.environ["GITHUB_TOKEN"] = subprocess.run(["gh", "auth", "token"], check=True,
+                                                    capture_output=True, text=True).stdout.strip()
+    return os.environ["GITHUB_TOKEN"]
+
+
+def github(path, method="GET", data=None):
+    req = urllib.request.Request("https://api.github.com" + path, method=method,
+                                 data=None if data is None else json.dumps(data).encode(), headers={
+        "Authorization": "Bearer " + token(),
         "Accept": "application/vnd.github+json",
         "User-Agent": "nutstaller-workshop",
     })
@@ -136,29 +148,66 @@ def rebuild_index():
         encoding="utf-8")
 
 
-def submit():
-    event = json.loads(Path(os.environ["GITHUB_EVENT_PATH"]).read_text(encoding="utf-8"))
-    issue = event["issue"]
+def publish(repo, issue):
+    """Writes blueprints/<issue>/ for a valid submission. (published, reply)"""
     login = issue["user"]["login"]
-    now = datetime.datetime.now(datetime.timezone.utc)
-    reply = ROOT / "reply.md"
     try:
-        check_author(os.environ["GITHUB_REPOSITORY"], issue)
+        check_author(repo, issue)
         name, description, blueprint, preview, ext, parts = parse_submission(issue.get("body"))
     except Rejected as e:
-        reply.write_text(f"Not published: {e}.\n", encoding="utf-8")
-        return 1
+        return False, f"Not published: {e}."
     folder = BLUEPRINTS / str(issue["number"])
     folder.mkdir(parents=True, exist_ok=True)
     (folder / "blueprint.bin").write_bytes(blueprint)
     (folder / f"preview.{ext}").write_bytes(preview)
     meta = {"name": name, "description": description, "author": login, "parts": parts,
-            "created": now.strftime("%Y-%m-%dT%H:%M:%SZ"), "preview_file": f"preview.{ext}"}
+            "created": issue["created_at"], "preview_file": f"preview.{ext}"}
     (folder / "meta.json").write_text(json.dumps(meta, indent=1, ensure_ascii=False) + "\n",
                                       encoding="utf-8")
-    reply.write_text(f"Published **{name}** ({parts} parts). It shows up in NutStaller's "
-                     "workshop within a few minutes.\n", encoding="utf-8")
-    return 0
+    return True, (f"Published **{name}** ({parts} parts). It shows up in NutStaller's "
+                  "workshop within a few minutes.")
+
+
+def git(*args):
+    subprocess.run(["git", "-C", str(ROOT), *args], check=True)
+
+
+def run_once(repo):
+    git("pull", "-q", "--rebase")
+    issues = github(f"/repos/{repo}/issues?state=open&labels=blueprint"
+                    "&sort=created&direction=asc&per_page=50")
+    for issue in issues:
+        if "pull_request" in issue:
+            continue
+        n = issue["number"]
+        ok, reply = publish(repo, issue)
+        if ok:
+            rebuild_index()
+            git("add", f"blueprints/{n}", "index.json")
+            # already there when an earlier pass pushed but did not get to reply
+            if subprocess.run(["git", "-C", str(ROOT), "diff", "--cached", "--quiet"]).returncode:
+                git("commit", "-q", "-m", f"Add blueprint from #{n}")
+            git("push", "-q")  # on failure the issue stays open and the next pass retries
+        github(f"/repos/{repo}/issues/{n}/comments", "POST", {"body": reply})
+        github(f"/repos/{repo}/issues/{n}", "PATCH",
+               {"state": "closed", "state_reason": "completed" if ok else "not_planned"})
+        print(f"#{n}: {reply}", flush=True)
+    # also picks up blueprints a maintainer deleted or edited by hand
+    rebuild_index()
+    if subprocess.run(["git", "-C", str(ROOT), "diff", "--quiet", "index.json"]).returncode:
+        git("commit", "-q", "-m", "Rebuild index", "index.json")
+        git("push", "-q")
+
+
+def bot(repo, interval=60):
+    while True:
+        try:
+            run_once(repo)
+        except Exception as e:  # offline, GitHub hiccup, push race: try again next pass
+            if isinstance(e, subprocess.CalledProcessError):
+                subprocess.run(["git", "-C", str(ROOT), "reset", "-q", "--hard", "@{u}"])
+            print(f"pass failed: {e}", file=sys.stderr, flush=True)
+        time.sleep(interval)
 
 
 def test():
@@ -189,8 +238,11 @@ def test():
 
 if __name__ == "__main__":
     mode = sys.argv[1] if len(sys.argv) > 1 else ""
-    if mode == "submit":
-        sys.exit(submit())
+    repo = os.environ.get("GITHUB_REPOSITORY", "etonedemid/nutstaller-workshop")
+    if mode == "bot":
+        bot(repo)
+    elif mode == "once":
+        run_once(repo)
     elif mode == "index":
         rebuild_index()
     elif mode == "test":

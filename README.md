@@ -4,7 +4,7 @@ Community blueprints (vehicles) for Banjo-Kazooie: Nuts & Bolts, browsed and ins
 
 ## Sharing a blueprint
 
-In NutStaller open **Workshop**, then **Share a blueprint**. Pick the vehicle from your save, give it a name, a short description and a screenshot, then press **Copy and open GitHub**. Paste into the issue form and submit. A bot validates and publishes it within a minute.
+In NutStaller open **Workshop**, then the **Share** tab. Pick the vehicle from your save, give it a name, a short description and a screenshot, then press **Copy and open GitHub**. Paste into the issue form and submit. A bot validates and publishes it, usually within a minute (submissions wait while the bot is offline).
 
 Rules the bot enforces:
 - At most 3 blueprints per 10 minutes per account.
@@ -17,7 +17,18 @@ Rules the bot enforces:
 - `blueprints/<id>/meta.json`: name, description, author (the submitter's GitHub login), part count, date.
 - `index.json`: every blueprint, rebuilt by `tools/workshop.py`. NutStaller reads this file.
 
-Maintainers remove a blueprint by deleting its folder; the index rebuilds itself.
+Maintainers remove a blueprint by deleting its folder; the bot rebuilds the index on its next pass.
+
+## The bot
+
+It runs on a maintainer's PC rather than GitHub Actions: `tools/workshop.py bot` checks the open `blueprint` issues every minute, publishes the valid ones, pushes, then replies and closes each issue. It uses `gh auth token` and the git login of whoever runs it, in its own clone:
+
+```
+git clone https://github.com/etonedemid/nutstaller-workshop ~/.local/share/nutstaller-workshop-bot
+python3 -I ~/.local/share/nutstaller-workshop-bot/tools/workshop.py bot
+```
+
+`tools/nutstaller-workshop-bot.service` runs it as a systemd user service.
 
 ## Blueprint format
 
