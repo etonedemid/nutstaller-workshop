@@ -7,7 +7,6 @@ Community blueprints (vehicles) for Banjo-Kazooie: Nuts & Bolts, browsed and ins
 In NutStaller open **Workshop**, then **Share a blueprint**. Pick the vehicle from your save, give it a name, a short description and a screenshot, then press **Copy and open GitHub**. Paste into the issue form and submit. A bot validates and publishes it within a minute.
 
 Rules the bot enforces:
-- A GitHub account older than 7 days.
 - At most 3 blueprints per 10 minutes per account.
 - A real blueprint file and a JPEG or PNG preview (NutStaller prepares both).
 

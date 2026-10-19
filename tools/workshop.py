@@ -32,7 +32,6 @@ MAX_NAME = 31          # the game's name field holds 32 UTF-16 characters
 MAX_DESCRIPTION = 200
 RATE_LIMIT = 3         # submissions per user ...
 RATE_WINDOW = datetime.timedelta(minutes=10)
-MIN_ACCOUNT_AGE = datetime.timedelta(days=7)
 
 
 class Rejected(Exception):
@@ -100,12 +99,10 @@ def when(stamp):
 
 
 def check_author(repo, login, now):
-    """Bot protection: no brand-new accounts, at most RATE_LIMIT submissions per window."""
+    """Bot protection: people only, at most RATE_LIMIT submissions per window."""
     user = github(f"/users/{login}")
     if user.get("type") != "User":
         raise Rejected("submissions come from people, not bots")
-    if now - when(user["created_at"]) < MIN_ACCOUNT_AGE:
-        raise Rejected("your GitHub account is too new to submit blueprints yet; try again in a few days")
     issues = github(f"/repos/{repo}/issues?creator={login}&state=all&labels=blueprint"
                     "&sort=created&direction=desc&per_page=20")
     recent = [i for i in issues if now - when(i["created_at"]) < RATE_WINDOW]
