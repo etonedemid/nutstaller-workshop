@@ -1,35 +1,4 @@
 {
  "version": 1,
- "blueprints": [
-  {
-   "name": "Test BigBoyBase",
-   "description": "Workshop end-to-end test 0, will be removed.",
-   "author": "etonedemid",
-   "parts": 44,
-   "created": "2026-10-19T02:34:17Z",
-   "id": "3",
-   "blueprint": "blueprints/3/blueprint.bin",
-   "preview": "blueprints/3/preview.jpg"
-  },
-  {
-   "name": "Test doodoo",
-   "description": "Workshop end-to-end test 2, will be removed.",
-   "author": "etonedemid",
-   "parts": 33,
-   "created": "2026-10-19T02:34:17Z",
-   "id": "2",
-   "blueprint": "blueprints/2/blueprint.bin",
-   "preview": "blueprints/2/preview.jpg"
-  },
-  {
-   "name": "Test CUSTOM VEHICLE",
-   "description": "Workshop end-to-end test 1, will be removed.",
-   "author": "etonedemid",
-   "parts": 39,
-   "created": "2026-10-19T02:34:17Z",
-   "id": "1",
-   "blueprint": "blueprints/1/blueprint.bin",
-   "preview": "blueprints/1/preview.jpg"
-  }
- ]
+ "blueprints": []
 }
