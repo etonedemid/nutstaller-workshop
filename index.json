@@ -1,4 +1,15 @@
 {
  "version": 1,
- "blueprints": []
+ "blueprints": [
+  {
+   "name": "Test BigBoyBase",
+   "description": "Workshop end-to-end test 0, will be removed.",
+   "author": "etonedemid",
+   "parts": 44,
+   "created": "2026-10-19T02:34:17Z",
+   "id": "3",
+   "blueprint": "blueprints/3/blueprint.bin",
+   "preview": "blueprints/3/preview.jpg"
+  }
+ ]
 }
