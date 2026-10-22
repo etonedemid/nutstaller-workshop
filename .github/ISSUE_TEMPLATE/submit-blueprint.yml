@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        In NutStaller open **Workshop**, then **Share a blueprint**: pick the vehicle, name it, add a short description and a screenshot, then press **Copy and open GitHub**. Paste below and submit.
+        In NutStaller open **Workshop**, then **Share** and **Vehicle**: pick the vehicle, name it, add a short description and a screenshot, then press **Copy and open GitHub**. Paste below and submit.
         A bot publishes it within a minute (at most 3 blueprints per 10 minutes per account).
   - type: textarea
     id: submission

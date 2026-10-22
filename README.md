@@ -1,6 +1,6 @@
 # NutStaller Workshop
 
-Community blueprints (vehicles) for Banjo-Kazooie: Nuts & Bolts, browsed and installed from [NutStaller](https://github.com/etonedemid/NutStaller)'s Workshop page.
+Community blueprints (vehicles) and reNut part mods for Banjo-Kazooie: Nuts & Bolts, browsed and installed from [NutStaller](https://github.com/etonedemid/NutStaller)'s Workshop page.
 
 ## Sharing a blueprint
 
@@ -10,12 +10,26 @@ Rules the bot enforces:
 - At most 3 blueprints per 10 minutes per account.
 - A real blueprint file and a JPEG or PNG preview (NutStaller prepares both).
 
+## Sharing a part mod
+
+reNut loads custom vehicle parts from `.nbpatch` mods (see reNut's [custom-parts.md](https://github.com/masterspike52/reNut/blob/main/docs/modding/custom-parts.md)). In NutStaller open **Workshop**, **Share**, then **Part mod**: pick the `.nbpatch`, a name, description and screenshot, and press **Copy and open GitHub**. Paste into the form and drag in the `.nbpatch.zip` NutStaller puts in the folder it opens.
+
+- Only part mods: part files and the mod's own new bundles. Mods that change game files or patch the executable are refused.
+- At most 25 MB, 3 submissions per 10 minutes.
+- The bot checks the file and moderates the text and screenshot, then labels the issue `checked`. Models and textures can't be checked automatically, so a maintainer adds `approved` before it is published. An approval counts only for the file that was checked.
+- A newer version from the same author (same mod Id) replaces the old one.
+
+## Dependencies
+
+Every part in a blueprint is stored as its asset id, and a custom part's is reNut's `AssetId("banjox_vehicleblock_renut_<part id>")`. The bot works out which hosted mods each blueprint needs (`requires` in `index.json`) from the blueprint itself. Custom parts from mods that are not in the workshop are listed as `missing`, with the mod's name. NutStaller downloads the required mods together with the vehicle.
+
 ## Layout
 
 - `blueprints/<id>/blueprint.bin`: the vehicle, exactly as the game saves it.
 - `blueprints/<id>/preview.jpg`: the screenshot.
 - `blueprints/<id>/meta.json`: name, description, author (the submitter's GitHub login), part count, date.
-- `index.json`: every blueprint, rebuilt by `tools/workshop.py`. NutStaller reads this file.
+- `mods/<id>/meta.json` and `preview.jpg`: a part mod. The `.nbpatch` itself is the asset of the release `mod-<id>`.
+- `index.json`: every blueprint and mod, rebuilt by `tools/workshop.py`. NutStaller reads this file.
 
 Maintainers remove a blueprint by deleting its folder; the bot rebuilds the index on its next pass.
 

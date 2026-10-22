@@ -1,0 +1,32 @@
+name: Submit a part mod
+description: Share a reNut custom part mod (.nbpatch). Use NutStaller's Workshop page to make the submission.
+title: "Mod: "
+labels: [mod]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        In NutStaller open **Workshop**, then **Share** and **Part mod**: pick the .nbpatch, name it, add a short description and a screenshot, then press **Copy and open GitHub**. NutStaller also opens a folder with `<mod>.nbpatch.zip`.
+        Only part mods are hosted (parts and their own models), nothing that changes game files. The bot checks the mod, then a maintainer approves it before it is published.
+  - type: textarea
+    id: submission
+    attributes:
+      label: Submission
+      description: Paste what NutStaller copied.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: file
+    attributes:
+      label: Mod file
+      description: Drag the .nbpatch.zip NutStaller prepared into this box.
+    validations:
+      required: true
+  - type: checkboxes
+    id: rights
+    attributes:
+      label: Sharing
+      options:
+        - label: I made this mod or have its author's permission to share it.
+          required: true
