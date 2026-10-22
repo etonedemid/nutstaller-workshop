@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "O'Ruler",
+   "description": "Used to get the TT-Trophy for LOG's last mission in the game before the fight with Grunty.",
+   "author": "Muloon",
+   "parts": 42,
+   "created": "2026-10-22T23:42:38Z",
+   "id": "14",
+   "blueprint": "blueprints/14/blueprint.bin",
+   "preview": "blueprints/14/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Engine Gore",
    "description": "Body is made of every engine and jet I had end game, very fast, no flight.",
    "author": "Muloon",
