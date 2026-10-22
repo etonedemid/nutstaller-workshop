@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "X-12 Turret Bike",
+   "description": "My first custom vehicle for this playthrough.",
+   "author": "Muloon",
+   "parts": 16,
+   "created": "2026-10-22T23:58:38Z",
+   "id": "18",
+   "blueprint": "blueprints/18/blueprint.bin",
+   "preview": "blueprints/18/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Stealth Glider 1.1",
    "description": "Really sneaky plane/car hybrid, low profile but fast.",
    "author": "Muloon",
