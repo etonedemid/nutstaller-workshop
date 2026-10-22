@@ -71,6 +71,8 @@ CHECKED = "checked"
 
 
 LLM = os.environ.get("WORKSHOP_LLM", "http://127.0.0.1:8788/v1/chat/completions")
+# Servers with several models (LM Studio) need the one to use named.
+LLM_MODEL = os.environ.get("WORKSHOP_LLM_MODEL", "")
 MOD_LOG = Path(os.environ.get("WORKSHOP_MOD_LOG", ROOT.parent / "nutstaller-workshop-moderation.log"))
 MOD_PROMPT = """You moderate a public gallery of player-built vehicles from the video game \
 Banjo-Kazooie: Nuts & Bolts. Each submission is a preview picture plus a name and a description.
@@ -113,6 +115,7 @@ def moderate(name, description, preview, ext):
                 {"type": "text", "text": json.dumps({"name": name, "description": description})},
                 {"type": "image_url", "image_url": {"url": url}}]},
         ],
+        **({"model": LLM_MODEL} if LLM_MODEL else {}),
         "max_tokens": 120, "temperature": 0,
         "chat_template_kwargs": {"enable_thinking": False},
     }
