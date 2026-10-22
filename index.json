@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Engine Gore",
+   "description": "Body is made of every engine and jet I had end game, very fast, no flight.",
+   "author": "Muloon",
+   "parts": 31,
+   "created": "2026-10-22T23:40:09Z",
+   "id": "13",
+   "blueprint": "blueprints/13/blueprint.bin",
+   "preview": "blueprints/13/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Prec-Spy 49V",
    "description": "Stealth vehicle with camo, force field, and basic flight and weapons.",
    "author": "Muloon",
