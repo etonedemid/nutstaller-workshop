@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Prec-Spy 49V",
+   "description": "Stealth vehicle with camo, force field, and basic flight and weapons.",
+   "author": "Muloon",
+   "parts": 32,
+   "created": "2026-10-22T23:38:06Z",
+   "id": "12",
+   "blueprint": "blueprints/12/blueprint.bin",
+   "preview": "blueprints/12/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Pheonon Air-Craft",
    "description": "Cool helicopter thing that is good at hovering in place with baloons, has Torpedle, Egg Cannons, and Bomb Cannons",
    "author": "Muloon",
