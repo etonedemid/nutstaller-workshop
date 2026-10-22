@@ -9,7 +9,10 @@
    "created": "2026-10-19T17:21:41Z",
    "id": "9",
    "blueprint": "blueprints/9/blueprint.bin",
-   "preview": "blueprints/9/preview.jpg"
+   "preview": "blueprints/9/preview.jpg",
+   "requires": [],
+   "missing": []
   }
- ]
+ ],
+ "mods": []
 }
