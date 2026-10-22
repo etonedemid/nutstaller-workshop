@@ -23,27 +23,6 @@ reNut loads custom vehicle parts from `.nbpatch` mods (see reNut's [custom-parts
 
 Every part in a blueprint is stored as its asset id, and a custom part's is reNut's `AssetId("banjox_vehicleblock_renut_<part id>")`. The bot works out which hosted mods each blueprint needs (`requires` in `index.json`) from the blueprint itself. Custom parts from mods that are not in the workshop are listed as `missing`, with the mod's name. NutStaller downloads the required mods together with the vehicle.
 
-## Layout
-
-- `blueprints/<id>/blueprint.bin`: the vehicle, exactly as the game saves it.
-- `blueprints/<id>/preview.jpg`: the screenshot.
-- `blueprints/<id>/meta.json`: name, description, author (the submitter's GitHub login), part count, date.
-- `mods/<id>/meta.json` and `preview.jpg`: a part mod. The `.nbpatch` itself is the asset of the release `mod-<id>`.
-- `index.json`: every blueprint and mod, rebuilt by `tools/workshop.py`. NutStaller reads this file.
-
-Maintainers remove a blueprint by deleting its folder; the bot rebuilds the index on its next pass.
-
-## The bot
-
-It runs on a maintainer's PC rather than GitHub Actions: `tools/workshop.py bot` checks the open `blueprint` issues every minute, publishes the valid ones, pushes, then replies and closes each issue. It uses `gh auth token` and the git login of whoever runs it, in its own clone:
-
-```
-git clone https://github.com/etonedemid/nutstaller-workshop ~/.local/share/nutstaller-workshop-bot
-python3 -I ~/.local/share/nutstaller-workshop-bot/tools/workshop.py bot
-```
-
-`tools/nutstaller-workshop-bot.service` runs it as a systemd user service.
-
 ## Blueprint format
 
 Big-endian. It starts with the magic `3F9AE148 40547AE1`. A u16 part count sits at 0x08 and the vehicle name at 0x28 (32 UTF-16 characters). The 0x84-byte header is followed by one 36-byte record per part (part type hash, grid position, rotation, RGBA color). In the save, each vehicle is a save-game content package named `0x%08x`, with display name `VEHICLE: <name>`.
