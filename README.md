@@ -44,16 +44,6 @@ python3 -I ~/.local/share/nutstaller-workshop-bot/tools/workshop.py bot
 
 `tools/nutstaller-workshop-bot.service` runs it as a systemd user service.
 
-## Moderation
-
-Before anything is published, the bot shows the preview, name and description to a local vision model (aiden-llm on `127.0.0.1:8788`, override with `WORKSHOP_LLM`):
-
-- Harmful (sexual content, anything sexual involving minors, gore, hate or harassment, personal information, spam): the issue is deleted and nothing is saved. One line goes to `~/.local/share/nutstaller-workshop-moderation.log` (issue, author, reason).
-- Off topic (not from the game): rejected with a reply.
-- Model not running: the issue waits for the next pass. Nothing is published unmoderated.
-
-If something gets through anyway, `tools/workshop.py purge <id>` erases that blueprint from the whole git history and force-pushes. Other clones then need `git fetch && git reset --hard origin/main`. GitHub can still serve old objects by hash for a while, so for illegal content also report it to GitHub Support (for CSAM GitHub handles the report to NCMEC). A model is not a reliable CSAM detector; it is a first filter, not a guarantee.
-
 ## Blueprint format
 
 Big-endian. It starts with the magic `3F9AE148 40547AE1`. A u16 part count sits at 0x08 and the vehicle name at 0x28 (32 UTF-16 characters). The 0x84-byte header is followed by one 36-byte record per part (part type hash, grid position, rotation, RGBA color). In the save, each vehicle is a save-game content package named `0x%08x`, with display name `VEHICLE: <name>`.
