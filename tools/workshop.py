@@ -116,7 +116,9 @@ def moderate(name, description, preview, ext):
                 {"type": "image_url", "image_url": {"url": url}}]},
         ],
         **({"model": LLM_MODEL} if LLM_MODEL else {}),
-        "max_tokens": 120, "temperature": 0,
+        # room for models that reason before answering (LM Studio ignores
+        # enable_thinking)
+        "max_tokens": 2048, "temperature": 0,
         "chat_template_kwargs": {"enable_thinking": False},
     }
     req = urllib.request.Request(LLM, data=json.dumps(body).encode(),
@@ -126,12 +128,13 @@ def moderate(name, description, preview, ext):
             answer = json.load(resp)["choices"][0]["message"]["content"]
     except (OSError, ValueError, KeyError, IndexError) as e:
         raise Unavailable(f"moderation model unreachable: {e}")
-    # A reply that is not the verdict counts as a rejection, so an image
-    # crafted to confuse the model cannot get through or stall the queue.
+    # A reply that is not the verdict never publishes, and never deletes
+    # either (an empty answer was a model that ran out of tokens): the issue
+    # waits for a maintainer, and only that one issue.
     try:
-        verdict = json.loads(re.search(r"\{.*\}", answer, re.S).group(0))
+        verdict = json.loads(re.search(r"\{.*\}", answer or "", re.S).group(0))
     except (AttributeError, ValueError):
-        raise Flagged(f"unreadable verdict: {answer[:100]!r}")
+        raise Unavailable(f"unreadable verdict, left for a maintainer: {(answer or '')[:100]!r}")
     category, reason = verdict.get("category"), str(verdict.get("reason", ""))[:150]
     if category == "off_topic":
         raise Rejected("the preview should be a picture from the game, ideally of the vehicle")
