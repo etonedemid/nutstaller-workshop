@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Voot Cruiser",
+   "description": "From Invader Zim",
+   "author": "smloader",
+   "parts": 46,
+   "created": "2026-10-23T17:39:05Z",
+   "id": "43",
+   "blueprint": "blueprints/43/blueprint.bin",
+   "preview": "blueprints/43/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "The Offspring",
    "description": "Youngest of the mothership",
    "author": "smloader",
