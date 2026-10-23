@@ -1,0 +1,9 @@
+{
+ "name": "Tank",
+ "description": "M1 Abrams",
+ "author": "smloader",
+ "parts": 250,
+ "created": "2026-10-23T17:36:19Z",
+ "preview_file": "preview.jpg",
+ "custom_parts": []
+}
