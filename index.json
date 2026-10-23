@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Ghost",
+   "description": "From Halo",
+   "author": "smloader",
+   "parts": 18,
+   "created": "2026-10-23T17:24:32Z",
+   "id": "31",
+   "blueprint": "blueprints/31/blueprint.bin",
+   "preview": "blueprints/31/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Flip Me",
    "description": "Flip Me!",
    "author": "smloader",
