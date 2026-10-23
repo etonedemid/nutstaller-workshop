@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Hornet",
+   "description": "From Halo",
+   "author": "smloader",
+   "parts": 94,
+   "created": "2026-10-23T17:25:32Z",
+   "id": "32",
+   "blueprint": "blueprints/32/blueprint.bin",
+   "preview": "blueprints/32/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Ghost",
    "description": "From Halo",
    "author": "smloader",
