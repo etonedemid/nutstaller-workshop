@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Super Stunt Bike",
+   "description": "Super parts recreation of the LOG vehicle",
+   "author": "smloader",
+   "parts": 95,
+   "created": "2026-10-23T17:34:30Z",
+   "id": "39",
+   "blueprint": "blueprints/39/blueprint.bin",
+   "preview": "blueprints/39/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Semi Truck",
    "description": "Carry the load in a big rig (with closing trailer door)",
    "author": "smloader",
