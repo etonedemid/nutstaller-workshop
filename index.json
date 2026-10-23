@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "House",
+   "description": "Welcome Home",
+   "author": "smloader",
+   "parts": 240,
+   "created": "2026-10-23T17:26:11Z",
+   "id": "33",
+   "blueprint": "blueprints/33/blueprint.bin",
+   "preview": "blueprints/33/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Hornet",
    "description": "From Halo",
    "author": "smloader",
