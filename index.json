@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "The Offspring",
+   "description": "Youngest of the mothership",
+   "author": "smloader",
+   "parts": 20,
+   "created": "2026-10-23T17:38:12Z",
+   "id": "42",
+   "blueprint": "blueprints/42/blueprint.bin",
+   "preview": "blueprints/42/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "The Firstborn",
    "description": "Eldest of the mothership",
    "author": "smloader",
