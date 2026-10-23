@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Dragster",
+   "description": "Try it on Speedway!",
+   "author": "smloader",
+   "parts": 83,
+   "created": "2026-10-23T17:21:36Z",
+   "id": "28",
+   "blueprint": "blueprints/28/blueprint.bin",
+   "preview": "blueprints/28/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Banshee",
    "description": "From Halo",
    "author": "smloader",
