@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Mini Nuke",
+   "description": "For use with: Fat Man",
+   "author": "smloader",
+   "parts": 211,
+   "created": "2026-10-23T17:29:45Z",
+   "id": "36",
+   "blueprint": "blueprints/36/blueprint.bin",
+   "preview": "blueprints/36/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Low Dump",
    "description": "Carry the load with a lower wheel base",
    "author": "smloader",
