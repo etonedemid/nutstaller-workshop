@@ -61,6 +61,7 @@ MAX_NAME = 31          # the game's name field holds 32 UTF-16 characters
 MAX_DESCRIPTION = 200
 RATE_LIMIT = 3         # submissions per user ...
 RATE_WINDOW = datetime.timedelta(minutes=10)
+RATE_EXEMPT = {"muloon"}  # trusted submitters, lowercase logins: no rate limit
 MAX_MOD = 25 * 1024 * 1024           # GitHub's limit for an issue attachment
 MAX_MOD_UNPACKED = 200 * 1024 * 1024
 PART_ID = re.compile(r"[a-z0-9_]{1,40}")
@@ -250,7 +251,7 @@ def check_author(repo, issue, label="blueprint"):
         raise Rejected("submissions come from people, not bots")
     issues = github(f"/repos/{repo}/issues?creator={login}&state=all&labels={label}"
                     "&sort=created&direction=desc&per_page=100")
-    if over_rate_limit(issues, issue["number"], when(issue["created_at"])):
+    if login.lower() not in RATE_EXEMPT and over_rate_limit(issues, issue["number"], when(issue["created_at"])):
         raise Rejected(f"only {RATE_LIMIT} submissions per 10 minutes; wait a bit and submit again")
 
 
