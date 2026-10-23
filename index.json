@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Low Dump",
+   "description": "Carry the load with a lower wheel base",
+   "author": "smloader",
+   "parts": 139,
+   "created": "2026-10-23T17:28:37Z",
+   "id": "35",
+   "blueprint": "blueprints/35/blueprint.bin",
+   "preview": "blueprints/35/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Laser Pistol",
    "description": "Pew Pew!",
    "author": "smloader",
