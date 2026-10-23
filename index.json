@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "BANJOI Turret",
+   "description": "Stationary torpedle turret, best in first person! Got TT-Torphy in \"Beat The Fleet\"",
+   "author": "Muloon",
+   "parts": 43,
+   "created": "2026-10-23T21:13:04Z",
+   "id": "46",
+   "blueprint": "blueprints/46/blueprint.bin",
+   "preview": "blueprints/46/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "X-Wing",
    "description": "From Star Wars",
    "author": "smloader",
