@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Apache",
+   "description": "Attack Helicopter",
+   "author": "smloader",
+   "parts": 170,
+   "created": "2026-10-23T17:19:35Z",
+   "id": "26",
+   "blueprint": "blueprints/26/blueprint.bin",
+   "preview": "blueprints/26/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Airliner",
    "description": "737 Inspired",
    "author": "smloader",
