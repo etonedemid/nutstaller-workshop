@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Laser Pistol",
+   "description": "Pew Pew!",
+   "author": "smloader",
+   "parts": 186,
+   "created": "2026-10-23T17:27:23Z",
+   "id": "34",
+   "blueprint": "blueprints/34/blueprint.bin",
+   "preview": "blueprints/34/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "House",
    "description": "Welcome Home",
    "author": "smloader",
