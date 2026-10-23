@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Flip Me",
+   "description": "Flip Me!",
+   "author": "smloader",
+   "parts": 43,
+   "created": "2026-10-23T17:23:47Z",
+   "id": "30",
+   "blueprint": "blueprints/30/blueprint.bin",
+   "preview": "blueprints/30/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Dump Truck",
    "description": "Carry the load",
    "author": "smloader",
