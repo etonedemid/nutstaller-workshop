@@ -61,7 +61,7 @@ MAX_NAME = 31          # the game's name field holds 32 UTF-16 characters
 MAX_DESCRIPTION = 200
 RATE_LIMIT = 3         # submissions per user ...
 RATE_WINDOW = datetime.timedelta(minutes=10)
-RATE_EXEMPT = {"muloon"}  # trusted submitters, lowercase logins: no rate limit
+RATE_EXEMPT = {"muloon", "smloader"}  # trusted submitters, lowercase logins: no rate limit
 MAX_MOD = 25 * 1024 * 1024           # GitHub's limit for an issue attachment
 MAX_MOD_UNPACKED = 200 * 1024 * 1024
 PART_ID = re.compile(r"[a-z0-9_]{1,40}")
