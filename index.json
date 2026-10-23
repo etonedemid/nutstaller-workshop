@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Wee-Woo",
+   "description": "Police car with great control. Comes with siren if you have it!",
+   "author": "smloader",
+   "parts": 23,
+   "created": "2026-10-23T17:40:30Z",
+   "id": "44",
+   "blueprint": "blueprints/44/blueprint.bin",
+   "preview": "blueprints/44/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Voot Cruiser",
    "description": "From Invader Zim",
    "author": "smloader",
