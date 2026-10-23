@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "WM_V1",
+   "description": "This is a walking machine, that's it.",
+   "author": "robsmith1274-maker",
+   "parts": 229,
+   "created": "2026-10-23T11:43:07Z",
+   "id": "23",
+   "blueprint": "blueprints/23/blueprint.bin",
+   "preview": "blueprints/23/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Megber",
    "description": "Very good at driving going down volcanoes. Yes. Very heavy. Yes.",
    "author": "Muloon",
