@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Dump Truck",
+   "description": "Carry the load",
+   "author": "smloader",
+   "parts": 143,
+   "created": "2026-10-23T17:22:34Z",
+   "id": "29",
+   "blueprint": "blueprints/29/blueprint.bin",
+   "preview": "blueprints/29/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Dragster",
    "description": "Try it on Speedway!",
    "author": "smloader",
