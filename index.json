@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "X-Wing",
+   "description": "From Star Wars",
+   "author": "smloader",
+   "parts": 51,
+   "created": "2026-10-23T17:41:22Z",
+   "id": "45",
+   "blueprint": "blueprints/45/blueprint.bin",
+   "preview": "blueprints/45/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Wee-Woo",
    "description": "Police car with great control. Comes with siren if you have it!",
    "author": "smloader",
