@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Airliner",
+   "description": "737 Inspired",
+   "author": "smloader",
+   "parts": 133,
+   "created": "2026-10-23T17:18:16Z",
+   "id": "25",
+   "blueprint": "blueprints/25/blueprint.bin",
+   "preview": "blueprints/25/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "+",
    "description": "Plus-shaped aircraft",
    "author": "smloader",
