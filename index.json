@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "TXT-A6 Experimental Series",
+   "description": "Nigh Unusable, hold B to disable hyper drive. Wheel based hyper drive.",
+   "author": "Muloon",
+   "parts": 77,
+   "created": "2026-10-23T00:05:17Z",
+   "id": "20",
+   "blueprint": "blueprints/20/blueprint.bin",
+   "preview": "blueprints/20/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Azura",
    "description": "Compact all purpose racer.",
    "author": "Muloon",
