@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Stationary Heavy Turret",
+   "description": "Accelerate and Reverse to turn, use camera to aim.",
+   "author": "Muloon",
+   "parts": 186,
+   "created": "2026-10-24T23:08:28Z",
+   "id": "48",
+   "blueprint": "blueprints/48/blueprint.bin",
+   "preview": "blueprints/48/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Azure Sky-Fighter",
    "description": "Many egg shooters, mostly super parts, regens ammo and fuel.",
    "author": "Muloon",
