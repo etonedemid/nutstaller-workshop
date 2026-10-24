@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Azure Sky-Fighter",
+   "description": "Many egg shooters, mostly super parts, regens ammo and fuel.",
+   "author": "Muloon",
+   "parts": 52,
+   "created": "2026-10-24T01:28:37Z",
+   "id": "47",
+   "blueprint": "blueprints/47/blueprint.bin",
+   "preview": "blueprints/47/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "BANJOI Turret",
    "description": "Stationary torpedle turret, best in first person! Got TT-Torphy in \"Beat The Fleet\"",
    "author": "Muloon",
