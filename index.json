@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Mechanical Verity",
+   "description": "It's Verity...",
+   "author": "Muloon",
+   "parts": 163,
+   "created": "2026-10-25T04:18:46Z",
+   "id": "49",
+   "blueprint": "blueprints/49/blueprint.bin",
+   "preview": "blueprints/49/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Stationary Heavy Turret",
    "description": "Accelerate and Reverse to turn, use camera to aim.",
    "author": "Muloon",
