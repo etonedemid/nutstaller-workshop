@@ -2,6 +2,18 @@
  "version": 1,
  "blueprints": [
   {
+   "name": "Suck Engine?",
+   "description": "uses Suck N' Blow to accelerate (bound to A), the jets are added for additional speed and so you can actually reverse (requires Infinite Parts)",
+   "author": "nukoyaki",
+   "parts": 116,
+   "created": "2026-10-26T04:44:30Z",
+   "id": "50",
+   "blueprint": "blueprints/50/blueprint.bin",
+   "preview": "blueprints/50/preview.jpg",
+   "requires": [],
+   "missing": []
+  },
+  {
    "name": "Mechanical Verity",
    "description": "It's Verity...",
    "author": "Muloon",
